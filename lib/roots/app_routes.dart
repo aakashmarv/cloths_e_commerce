@@ -1,10 +1,13 @@
 
+import 'package:cloth_e_commerce/modules/dashboard/dashboard_binding.dart';
+import 'package:cloth_e_commerce/modules/dashboard/dashboard_view.dart';
+import 'package:cloth_e_commerce/modules/splash/splash_binding.dart';
 import 'package:get/get.dart';
-
-import '../view/splash_screen.dart';
+import '../modules/splash/splash_view.dart';
 
 class AppRoutes {
   static const splash = '/splash';
+  static const dashboard = '/dashboard';
 
   static const _defaultTransition = Transition.cupertino;
   static const _transitionDuration = Duration(milliseconds: 500);
@@ -12,10 +15,12 @@ class AppRoutes {
   static GetPage _buildPage({
     required String name,
     required GetPageBuilder page,
+    Bindings? binding
   }) {
     return GetPage(
       name: name,
       page: page,
+      binding: binding,
       transition: _defaultTransition,
       transitionDuration: _transitionDuration,
     );
@@ -23,8 +28,9 @@ class AppRoutes {
 
   static List<GetPage> getRoutes() {
     return [
-      _buildPage(name: splash, page: () => SplashScreen()),
-     
+      _buildPage(name: splash, page: () => const SplashView(),binding: SplashBinding(),),
+      _buildPage(name: dashboard, page: () => const DashboardView(), binding: DashboardBinding()),
+
     ];
   }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-
 import 'constants/app_strings.dart';
 import 'roots/app_routes.dart';
 
