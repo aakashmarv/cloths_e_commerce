@@ -13,7 +13,7 @@ class _SplashViewState extends State<SplashView>
 
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
-  late Animation<double> _fadeAnimation;
+  late Animation<double> _fadeAnimation;                                              
 
   @override
   void initState() {

@@ -1,17 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import '../../constants/app_colors.dart';
+import '../category/categories_view copy.dart';
 import '../home/home_screen.dart';
-import '../category/categories_screen.dart';
+import '../category/categories_view.dart';
 import '../profile/account_screen.dart';
 import 'dashboard_controller.dart';
 
 class DashboardView extends GetView<DashboardController> {
-  const DashboardView({super.key});
+    DashboardView({super.key});
+// DashboardView({super.key}) {
+//   if (!Get.isRegistered<CategoriesController>()) {
+//     Get.lazyPut(() => CategoriesController());
+//   }
+// }
 
-  final List<Widget> _screens = const [
+  // DashboardView({super.key}) {
+  //   Get.lazyPut(() => CategoriesController());  // ⭐ FIX
+  // }
+  final List<Widget> _screens =  [
     HomeScreen(),
-    CategoriesScreen(),
+    CategoriesView(),
     AccountScreen(),
   ];
 
@@ -77,7 +86,7 @@ class DashboardView extends GetView<DashboardController> {
             vertical: 8,
           ),
           decoration: BoxDecoration(
-            color: isSelected ? const Color(0xFFFFD700) : Colors.transparent,
+            color: isSelected ?  AppColors.primary : Colors.transparent,
             borderRadius: BorderRadius.circular(20),
           ),
           child: Row(

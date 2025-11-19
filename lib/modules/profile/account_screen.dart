@@ -1,3 +1,4 @@
+import 'package:cloth_e_commerce/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class AccountScreen extends StatelessWidget {
@@ -6,6 +7,7 @@ class AccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.white,
       appBar: AppBar(
         title: const Text('Account', style: TextStyle(color: Colors.black)),
         backgroundColor: Colors.white,
@@ -43,6 +45,8 @@ class AccountScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(15),
+        border: Border.all(color: AppColors.primary),
+
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.05),
