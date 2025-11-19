@@ -1,5 +1,3 @@
-
-import 'package:cloth_e_commerce/modules/category/categories_view.dart';
 import 'package:cloth_e_commerce/modules/category/category_binding.dart';
 import 'package:cloth_e_commerce/modules/dashboard/dashboard_binding.dart';
 import 'package:cloth_e_commerce/modules/dashboard/dashboard_view.dart';

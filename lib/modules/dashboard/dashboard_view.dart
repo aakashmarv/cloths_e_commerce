@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import '../../constants/app_colors.dart';
 import '../category/categories_view copy.dart';
 import '../home/home_screen.dart';
-import '../category/categories_view.dart';
 import '../profile/account_screen.dart';
 import 'dashboard_controller.dart';
 
