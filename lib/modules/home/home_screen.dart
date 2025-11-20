@@ -1,4 +1,6 @@
+import 'package:cloth_e_commerce/roots/app_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../constants/app_colors.dart';
@@ -391,13 +393,13 @@ class _HomeScreenState extends State<HomeScreen>
               ),
             ),
           ),
-           SizedBox(width: 6.w),
+          SizedBox(width: 6.w),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
 
             children: [
-               Text(
+              Text(
                 'FLAT 10% OFF',
                 style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
               ),
@@ -413,8 +415,6 @@ class _HomeScreenState extends State<HomeScreen>
               ),
             ],
           ),
-       
-       
         ],
       ),
     );
@@ -427,7 +427,7 @@ class _HomeScreenState extends State<HomeScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-           Text(
+          Text(
             'Recently Viewed',
             style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
           ),
@@ -457,7 +457,7 @@ class _HomeScreenState extends State<HomeScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-           Text(
+          Text(
             'All Products',
             style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
           ),
@@ -482,10 +482,11 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  // ---------------- PRODUCT CARD ----------------
   Widget _buildProductCard(Map<String, dynamic> product) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Get.toNamed(AppRoutes.productDetailScreen);
+      },
       child: Container(
         width: 43.w,
         margin: const EdgeInsets.only(bottom: 8.0),
@@ -571,7 +572,9 @@ class _HomeScreenState extends State<HomeScreen>
 
   Widget _buildAllProductCard(Map<String, dynamic> product) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Get.toNamed(AppRoutes.productDetailScreen);
+      },
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -610,7 +613,7 @@ class _HomeScreenState extends State<HomeScreen>
                   Positioned(
                     top: 10,
                     right: 10,
-                    child: Container(                                                                                                                                                                                                     
+                    child: Container(
                       padding: const EdgeInsets.all(8),
                       decoration: const BoxDecoration(
                         color: Colors.white,

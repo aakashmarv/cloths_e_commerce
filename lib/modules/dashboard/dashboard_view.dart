@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../constants/app_colors.dart';
 import '../category/categories_view copy.dart';
+// import '../category/categories_view.dart';
 import '../home/home_screen.dart';
 import '../profile/account_screen.dart';
 import 'dashboard_controller.dart';
@@ -15,7 +16,7 @@ class DashboardView extends GetView<DashboardController> {
 // }
 
   // DashboardView({super.key}) {
-  //   Get.lazyPut(() => CategoriesController());  // ⭐ FIX
+  //   Get.lazyPut(() => CategoriesController());
   // }
   final List<Widget> _screens =  [
     HomeScreen(),
