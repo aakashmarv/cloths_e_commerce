@@ -105,13 +105,41 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
     return AppBar(
       backgroundColor: Colors.white,
       elevation: 0,
-      actions: const [
-        Icon(Icons.share_outlined, size: 26, color: Colors.black),
+      actions: [
+        Icon(Icons.share_outlined,size: 19.sp, color: Colors.black),
         SizedBox(width: 12),
-        Icon(Icons.favorite_border, size: 26, color: Colors.black),
-        SizedBox(width: 12),
-        Icon(Icons.shopping_cart_outlined, size: 26, color: Colors.black),
-        SizedBox(width: 10),
+        Stack(
+          children: [
+            IconButton(
+              icon:  Icon(
+                Icons.shopping_cart_outlined,
+                color: Colors.black,
+                size: 20.sp,
+              ),
+              onPressed: () {},
+            ),
+            Positioned(
+              right: 8,
+              top: 6,
+              child: Container(
+                padding: const EdgeInsets.all(4),
+                decoration: const BoxDecoration(
+                  color: AppColors.primary,
+                  shape: BoxShape.circle,
+                ),
+                child: Text(
+                  '0',
+                  style: TextStyle(
+                    color: AppColors.black,
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(width: 10),
       ],
     );
   }
@@ -260,8 +288,6 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
     );
   }
 
-  // -------------------- SIZE SELECTOR ---------------------
-
   Widget _sizeSelector() {
     return _section(
       title: "Size",
@@ -300,8 +326,6 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
     );
   }
 
-  // -------------------- DELIVERY CHECK ---------------------
-
   Widget _deliveryCheck() {
     return _section(
       title: "Check Delivery Date",
@@ -317,13 +341,12 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
               children: [
                 Expanded(
                   child: TextField(
-                    
                     keyboardType: TextInputType.phone,
                     decoration: const InputDecoration(
                       hintText: "Enter Pincode",
                       border: InputBorder.none,
                       contentPadding: EdgeInsets.symmetric(horizontal: 15),
-                      isDense: true
+                      isDense: true,
                     ),
                   ),
                 ),
@@ -336,9 +359,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                   ),
                   child: TextButton(
                     onPressed: () {},
-                    style: TextButton.styleFrom(
-                     minimumSize: Size(100, 35)
-                    ),
+                    style: TextButton.styleFrom(minimumSize: Size(100, 35)),
                     child: const Text(
                       "Check",
                       style: TextStyle(color: Colors.white),
@@ -371,21 +392,17 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
     );
   }
 
-  // -------------------- OFFERS ---------------------
-
   Widget _offers() {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(15),
       color: AppColors.primary,
-      child: const Text(
+      child: Text(
         "You will get 10% reward points on this order",
         style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
       ),
     );
   }
-
-  // -------------------- EXPANDABLE PRODUCT DETAILS ---------------------
 
   Widget _productDetails() {
     return StatefulBuilder(
