@@ -162,7 +162,9 @@ class _HomeScreenState extends State<HomeScreen>
                 Icons.shopping_cart_outlined,
                 color: Colors.black,
               ),
-              onPressed: () {},
+              onPressed: () {
+                Get.toNamed(AppRoutes.cartScreen);
+              },
             ),
             Positioned(
               right: 8,

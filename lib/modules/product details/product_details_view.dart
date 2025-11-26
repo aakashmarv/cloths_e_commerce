@@ -536,7 +536,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
         physics: NeverScrollableScrollPhysics(),
         crossAxisSpacing: 20,
         mainAxisSpacing: 12,
-        childAspectRatio: 3, // adjust height/width
+        childAspectRatio: 3, 
         children: specs.entries.map((e) {
           return _rowSpec(e.key, e.value);
         }).toList(),

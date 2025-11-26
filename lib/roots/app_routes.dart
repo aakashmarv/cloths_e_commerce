@@ -1,3 +1,4 @@
+import 'package:cloth_e_commerce/modules/cart/cart_view.dart';
 import 'package:cloth_e_commerce/modules/category/category_binding.dart';
 import 'package:cloth_e_commerce/modules/dashboard/dashboard_binding.dart';
 import 'package:cloth_e_commerce/modules/dashboard/dashboard_view.dart';
@@ -11,6 +12,7 @@ class AppRoutes {
   static const dashboard = '/dashboard';
   static const catogery = '/category';
   static const productDetailScreen = '/prdouctDetailScreen';
+  static const  cartScreen = '/cartScreen';
 
   static const _defaultTransition = Transition.cupertino;
   static const _transitionDuration = Duration(milliseconds: 500);
@@ -35,6 +37,7 @@ class AppRoutes {
       _buildPage(name: dashboard, page: () =>  DashboardView(), binding: DashboardBinding()),
       _buildPage(name: catogery, page: () =>  CategoriesView()),
       _buildPage(name: productDetailScreen, page: () =>  ProductDetailsView()),
+      _buildPage(name: cartScreen, page: () =>  CartView()),
 
     ];
   }
