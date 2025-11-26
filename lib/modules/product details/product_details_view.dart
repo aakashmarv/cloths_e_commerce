@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../constants/app_colors.dart';
@@ -62,6 +63,14 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
   ];
 
   final List<String> sizes = ["M", "L", "XL", "XXL"];
+  void _shareProduct() {
+    final productName = "Off White Elbow Patch Sweatshirt";
+    final productLink = "https://yourwebsite.com/products/123"; // optional
+    Share.share(
+      "$productName\nCheck this product: $productLink",
+      subject: productName,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,56 +105,114 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
     );
   }
 
-  // -------------------- BASIC UI HELPERS ---------------------
-
   Widget _sectionDivider() =>
       Divider(height: 25, thickness: 10, color: Colors.grey.shade200);
 
-  PreferredSizeWidget _appBar() {
-    return AppBar(
-      backgroundColor: Colors.white,
-      elevation: 0,
-      actions: [
-        Icon(Icons.share_outlined,size: 19.sp, color: Colors.black),
-        SizedBox(width: 12),
-        Stack(
-          children: [
-            IconButton(
-              icon:  Icon(
-                Icons.shopping_cart_outlined,
-                color: Colors.black,
-                size: 20.sp,
-              ),
-              onPressed: () {},
+PreferredSizeWidget _appBar() {
+  return AppBar(
+    backgroundColor: Colors.white,
+    elevation: 0,
+    actions: [
+      IconButton(
+        icon: Icon(Icons.share_outlined, size: 19.sp, color: Colors.black),
+         onPressed: () {
+    debugPrint("Share button pressed");
+    _shareProduct();
+  },
+      ),
+      SizedBox(width: 12),
+      Stack(
+        children: [
+          IconButton(
+            icon: Icon(
+              Icons.shopping_cart_outlined,
+              color: Colors.black,
+              size: 20.sp,
             ),
-            Positioned(
-              right: 8,
-              top: 6,
-              child: Container(
-                padding: const EdgeInsets.all(4),
-                decoration: const BoxDecoration(
-                  color: AppColors.primary,
-                  shape: BoxShape.circle,
-                ),
-                child: Text(
-                  '0',
-                  style: TextStyle(
-                    color: AppColors.black,
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
+            onPressed: () {
+              Get.toNamed(AppRoutes.cartScreen);
+            },
+          ),
+          Positioned(
+            right: 8,
+            top: 6,
+            child: Container(
+              padding: const EdgeInsets.all(4),
+              decoration: const BoxDecoration(
+                color: AppColors.primary,
+                shape: BoxShape.circle,
+              ),
+              child: Text(
+                '0',
+                style: TextStyle(
+                  color: AppColors.black,
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-          ],
-        ),
-        const SizedBox(width: 10),
-      ],
-    );
-  }
+          ),
+        ],
+      ),
+      const SizedBox(width: 10),
+    ],
+  );
+}
 
-  // -------------------- IMAGE SLIDER ---------------------
 
+
+  // PreferredSizeWidget _appBar() {
+  //   return AppBar(
+  //     backgroundColor: Colors.white,
+  //     elevation: 0,
+  //     actions: [
+  //       IconButton(
+  //         icon: Icon(Icons.share_outlined, size: 19.sp, color: Colors.black),
+  //         onPressed: () {
+  //           _shareProduct();
+  //           debugPrint("Share button pressed");
+  //         },
+  //       ),
+  //       SizedBox(width: 12),
+  //       Stack(
+  //         children: [
+  //           IconButton(
+  //             icon: Icon(
+  //               Icons.shopping_cart_outlined,
+  //               color: Colors.black,
+  //               size: 20.sp,
+  //             ),
+  //             onPressed: () {
+  //               Get.toNamed(AppRoutes.cartScreen);
+  //             },
+  //           ),
+  //           Positioned(
+  //             right: 8,
+  //             top: 6,
+  //             child: Container(
+  //               padding: const EdgeInsets.all(4),
+  //               decoration: const BoxDecoration(
+  //                 color: AppColors.primary,
+  //                 shape: BoxShape.circle,
+  //               ),
+  //               child: Text(
+  //                 '0',
+  //                 style: TextStyle(
+  //                   color: AppColors.black,
+  //                   fontSize: 12.sp,
+  //                   fontWeight: FontWeight.bold,
+  //                 ),
+  //               ),
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //       const SizedBox(width: 10),
+  //     ],
+  //   );
+  // }
+
+ 
   Widget _productImageSection() {
     const images = [
       "assets/p2.jpg",
@@ -191,23 +258,21 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                   );
                 }),
               ),
-              const SizedBox(height: 4),
-              Text(
-                "Tap on image to zoom",
-                style: TextStyle(
-                  fontSize: 12,
-                  color: AppColors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              // const SizedBox(height: 4),
+              // Text(
+              //   "Tap on image to zoom",
+              //   style: TextStyle(
+              //     fontSize: 12,
+              //     color: AppColors.black,
+              //     fontWeight: FontWeight.bold,
+              //   ),
+              // ),
             ],
           ),
         ),
       ],
     );
   }
-
-  // -------------------- TITLE & PRICE ---------------------
 
   Widget _titlePriceSection() {
     return Padding(
@@ -256,8 +321,6 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
       style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
     ),
   );
-
-  // -------------------- COLOR SELECTOR ---------------------
 
   Widget _colorSelector() {
     return _section(
@@ -531,12 +594,12 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       child: GridView.count(
-        crossAxisCount: 2, // 🔥 2 columns
+        crossAxisCount: 2,
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
         crossAxisSpacing: 20,
         mainAxisSpacing: 12,
-        childAspectRatio: 3, 
+        childAspectRatio: 3,
         children: specs.entries.map((e) {
           return _rowSpec(e.key, e.value);
         }).toList(),
@@ -603,7 +666,6 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // IMAGE + FAV ICON
             ClipRRect(
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(20),
@@ -657,8 +719,6 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
     );
   }
 
-  // -------------------- REUSABLE SECTION ---------------------
-
   Widget _section({required String title, required Widget child}) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
@@ -677,50 +737,56 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
   }
 }
 
-// -------------------- BOTTOM BUTTONS ---------------------
-
 Widget _bottomButtons() {
-  return Container(
-    padding: const EdgeInsets.all(10),
-    height: 70,
-    child: Row(
-      children: [
-        Expanded(
-          child: ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.black,
-              foregroundColor: AppColors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
+  return SafeArea(
+    child: Container(
+      padding: const EdgeInsets.all(10),
+      height: 70,
+      child: Row(
+        children: [
+          Expanded(
+            child: ElevatedButton(
+              onPressed: () {
+                Get.toNamed(AppRoutes.cartScreen);
+                debugPrint("Add to cart pressed");
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.black,
+                foregroundColor: AppColors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                minimumSize: Size(0, 35),
               ),
-              minimumSize: Size(0, 35),
-            ),
-            child: const Text(
-              "ADD TO CART",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              child: const Text(
+                "ADD TO CART",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
             ),
           ),
-        ),
-        const SizedBox(width: 10),
-        Expanded(
-          child: ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.primary,
-              foregroundColor: AppColors.black,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
+          const SizedBox(width: 10),
+          Expanded(
+            child: ElevatedButton(
+              onPressed: () {
+                Get.toNamed(AppRoutes.cartScreen);
+                debugPrint("Buy now pressed");
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.primary,
+                foregroundColor: AppColors.black,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                minimumSize: Size(0, 35),
               ),
-              minimumSize: Size(0, 35),
-            ),
-            child: const Text(
-              "BUY NOW",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              child: const Text(
+                "BUY NOW",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     ),
   );
 }

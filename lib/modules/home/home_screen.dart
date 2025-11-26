@@ -149,7 +149,9 @@ class _HomeScreenState extends State<HomeScreen>
       actions: [
         IconButton(
           icon: const Icon(Icons.search, color: Colors.black),
-          onPressed: () {},
+          onPressed: () {
+            Get.toNamed(AppRoutes.searchScreen);
+          },
         ),
         IconButton(
           icon: const Icon(Icons.notifications_outlined, color: Colors.black),

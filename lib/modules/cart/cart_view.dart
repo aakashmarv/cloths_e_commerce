@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/instance_manager.dart';
 import 'package:sizer/sizer.dart';
 import '../../constants/app_colors.dart';
+import '../../roots/app_routes.dart';
 
 class CartView extends StatelessWidget {
   const CartView({super.key});
@@ -218,7 +221,9 @@ class CartView extends StatelessWidget {
                 vertical: 8,
               ),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.toNamed(AppRoutes.paymentScreen);
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.black,
                   foregroundColor: AppColors.white,
@@ -439,6 +444,3 @@ class CartView extends StatelessWidget {
     );
   }
 }
-
-// }
-// }

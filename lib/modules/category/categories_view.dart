@@ -1,4 +1,6 @@
+import 'package:cloth_e_commerce/roots/app_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../constants/app_colors.dart';
@@ -198,45 +200,50 @@ class _CategoriesViewState extends State<CategoriesView> {
               itemBuilder: (context, index) {
                 final p = products[selectedCategory][index];
 
-                return Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-
-                      /// IMAGE
-                      ClipOval(
-                        child: Image.asset(
-                          p["image"],
-                          height: 8.h,
-                          width: 8.h,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-
-                      /// DETAILS
-                      Expanded(
-                        child: Padding(
-                          padding: EdgeInsets.all(width * 0.025),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                p["name"],
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14.sp,
-                                ),
-                              ),
-                            ],
+                return GestureDetector(
+                  onTap: () {
+                    Get.toNamed(AppRoutes.productDetailScreen);
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                  
+                        /// IMAGE     
+                        ClipOval(
+                          child: Image.asset(
+                            p["image"],
+                            height: 8.h,
+                            width: 8.h,
+                            fit: BoxFit.cover,
                           ),
                         ),
-                      )
-                    ],
+                  
+                        /// DETAILS
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsets.all(width * 0.025),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  p["name"],
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14.sp,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 );
               },
