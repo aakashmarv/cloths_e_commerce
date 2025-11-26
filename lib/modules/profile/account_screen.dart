@@ -1,5 +1,9 @@
 import 'package:cloth_e_commerce/constants/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
+
+import '../../roots/app_routes.dart';
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({super.key});
@@ -30,7 +34,9 @@ class AccountScreen extends StatelessWidget {
           const SizedBox(height: 30),
           _buildMenuItem(Icons.shopping_bag, 'My Orders'),
           _buildMenuItem(Icons.favorite, 'Wishlist'),
-          _buildMenuItem(Icons.location_on, 'Addresses'),
+          _buildMenuItem(Icons.location_on, 'Addresses', onTap: () {
+            Get.toNamed(AppRoutes.newAddressScreen);
+          }),
           _buildMenuItem(Icons.payment, 'Payment Methods'),
           _buildMenuItem(Icons.support_agent, 'Customer Support'),
           _buildMenuItem(Icons.settings, 'Settings'),
@@ -39,14 +45,13 @@ class AccountScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildMenuItem(IconData icon, String title) {
+  Widget _buildMenuItem(IconData icon, String title, {VoidCallback? onTap}) {
     return Container(
       margin: const EdgeInsets.only(bottom: 15),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(15),
         border: Border.all(color: AppColors.primary),
-
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.05),
@@ -59,8 +64,9 @@ class AccountScreen extends StatelessWidget {
         leading: Icon(icon, color: Colors.black),
         title: Text(title, style: const TextStyle(fontWeight: FontWeight.w600)),
         trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-        onTap: () {},
+        onTap: onTap,
       ),
     );
   }
+
 }
