@@ -119,15 +119,15 @@ class _CategoriesViewState extends State<CategoriesView> {
     final width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: AppColors.white,
+      backgroundColor: AppColors.bg(context),
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.bg(context),
         centerTitle: true,
         elevation: 1,
         title: Text(
           "Categories",
           // categories[selectedCategory]["name"],
-          style:  TextStyle(color: Colors.black, fontSize: 18.sp, fontWeight: FontWeight.bold),
+          style:  TextStyle(color: AppColors.text(context), fontSize: 18.sp, fontWeight: FontWeight.bold),
         )
       ),
 
@@ -137,7 +137,7 @@ class _CategoriesViewState extends State<CategoriesView> {
           /// LEFT SIDE CATEGORY LIST
           Container(
             width: width * 0.25,
-            color: Colors.grey.shade100,
+            color: AppColors.bgbttom(context),
             child: ListView.builder(
               itemCount: categories.length,
               itemBuilder: (context, index) {
@@ -176,7 +176,7 @@ class _CategoriesViewState extends State<CategoriesView> {
                             fontSize: 14.sp,
                             fontWeight:
                                 isSelected ? FontWeight.bold : FontWeight.normal,
-                            color: isSelected ?AppColors.primary : Colors.black,
+                            color: isSelected ?AppColors.primary : AppColors.text(context),
                           ),
                         ),
                       ],
@@ -236,6 +236,7 @@ class _CategoriesViewState extends State<CategoriesView> {
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 14.sp,
+                                    color: AppColors.text(context)
                                   ),
                                 ),
                               ],

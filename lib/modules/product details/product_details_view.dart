@@ -408,6 +408,7 @@ PreferredSizeWidget _appBar() {
                     decoration: const InputDecoration(
                       hintText: "Enter Pincode",
                       border: InputBorder.none,
+                            
                       contentPadding: EdgeInsets.symmetric(horizontal: 15),
                       isDense: true,
                     ),

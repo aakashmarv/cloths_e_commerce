@@ -82,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.bgColor,
+      backgroundColor: AppColors.bg(context),
       body: CustomScrollView(
         controller: _scrollController,
         physics: const BouncingScrollPhysics(),
@@ -112,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen>
       expandedHeight: 1.5.h,
       floating: false,
       pinned: true,
-      backgroundColor: AppColors.bgColor,
+      backgroundColor: AppColors.bg(context),
       elevation: _isScrolled ? 4 : 0,
       flexibleSpace: FlexibleSpaceBar(
         titlePadding: const EdgeInsets.only(left: 20, bottom: 16),
@@ -137,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen>
               Text(
                 'BEYOUNG',
                 style: TextStyle(
-                  color: Colors.black,
+                  color: AppColors.text(context),
                   fontWeight: FontWeight.bold,
                   fontSize: 17.sp,
                 ),
@@ -148,21 +148,24 @@ class _HomeScreenState extends State<HomeScreen>
       ),
       actions: [
         IconButton(
-          icon: const Icon(Icons.search, color: Colors.black),
+          icon: Icon(Icons.search, color: AppColors.text(context)),
           onPressed: () {
             Get.toNamed(AppRoutes.searchScreen);
           },
         ),
         IconButton(
-          icon: const Icon(Icons.notifications_outlined, color: Colors.black),
+          icon: Icon(
+            Icons.notifications_outlined,
+            color: AppColors.text(context),
+          ),
           onPressed: () {},
         ),
         Stack(
           children: [
             IconButton(
-              icon: const Icon(
+              icon: Icon(
                 Icons.shopping_cart_outlined,
-                color: Colors.black,
+                color: AppColors.text(context),
               ),
               onPressed: () {
                 Get.toNamed(AppRoutes.cartScreen);
@@ -214,7 +217,7 @@ class _HomeScreenState extends State<HomeScreen>
             style: TextStyle(
               fontSize: 17.sp,
               fontWeight: FontWeight.bold,
-              color: Colors.black,
+              color: AppColors.text(context),
             ),
           ),
         ],
@@ -433,7 +436,11 @@ class _HomeScreenState extends State<HomeScreen>
         children: [
           Text(
             'Recently Viewed',
-            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 18.sp,
+              fontWeight: FontWeight.bold,
+              color: AppColors.text(context),
+            ),
           ),
           const SizedBox(height: 15),
           SizedBox(
@@ -463,7 +470,11 @@ class _HomeScreenState extends State<HomeScreen>
         children: [
           Text(
             'All Products',
-            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 18.sp,
+              fontWeight: FontWeight.bold,
+              color: AppColors.text(context),
+            ),
           ),
 
           GridView.builder(
@@ -495,7 +506,7 @@ class _HomeScreenState extends State<HomeScreen>
         width: 43.w,
         margin: const EdgeInsets.only(bottom: 8.0),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColors.cardBg(context),
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
@@ -530,7 +541,11 @@ class _HomeScreenState extends State<HomeScreen>
                       color: Colors.white,
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(Icons.favorite_border, size: 20),
+                    child: Icon(
+                      Icons.favorite_border,
+                      size: 20,
+                      color: AppColors.icon(context),
+                    ),
                   ),
                 ),
               ],
@@ -544,9 +559,10 @@ class _HomeScreenState extends State<HomeScreen>
                     product['name'],
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
+                      color: AppColors.text(context),
                     ),
                   ),
                   const SizedBox(height: 4),
@@ -556,14 +572,21 @@ class _HomeScreenState extends State<HomeScreen>
                       const SizedBox(width: 4),
                       Text(
                         '${product['rating']}',
-                        style: const TextStyle(fontSize: 12),
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: AppColors.text(context),
+                        ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 8),
                   Text(
                     product['price'],
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.text(context),
+                    ),
                   ),
                 ],
               ),
@@ -581,7 +604,7 @@ class _HomeScreenState extends State<HomeScreen>
       },
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColors.cardBg(context),
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
@@ -623,7 +646,11 @@ class _HomeScreenState extends State<HomeScreen>
                         color: Colors.white,
                         shape: BoxShape.circle,
                       ),
-                      child: const Icon(Icons.favorite_border, size: 20),
+                      child: Icon(
+                        Icons.favorite_border,
+                        size: 20,
+                        color: AppColors.icon(context),
+                      ),
                     ),
                   ),
                 ],
@@ -636,9 +663,10 @@ class _HomeScreenState extends State<HomeScreen>
                 children: [
                   Text(
                     product['name'],
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
+                      color: AppColors.text(context),
                     ),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
@@ -650,16 +678,20 @@ class _HomeScreenState extends State<HomeScreen>
                       const SizedBox(width: 4),
                       Text(
                         '${product['rating']}',
-                        style: const TextStyle(fontSize: 12),
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: AppColors.text(context),
+                        ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 8),
                   Text(
                     product['price'],
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
+                      color: AppColors.text(context),
                     ),
                   ),
                 ],

@@ -1,6 +1,32 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
+  static Color bg(BuildContext context) =>
+      Theme.of(context).brightness == Brightness.dark
+      ? const Color(0xFF121212)
+      : const Color(0xFFFFFFFF);
+  static Color bgbttom(BuildContext context) =>
+      Theme.of(context).brightness == Brightness.dark
+      ? AppColors.lightText
+      : const Color(0xFFFFFFFF);
+
+  static Color text(BuildContext context) =>
+      Theme.of(context).brightness == Brightness.dark
+      ? Colors.white
+      : Colors.black;
+
+  static Color cardBg(BuildContext context) =>
+      Theme.of(context).brightness == Brightness.dark
+      ? const Color(0xFF1E1E1E)
+      : Colors.white;
+  static Color icon(BuildContext context) =>
+      Theme.of(context).brightness == Brightness.dark
+      ? AppColors.primary
+      : Colors.black;
+  static Color appicon(BuildContext context) =>
+      Theme.of(context).brightness == Brightness.dark
+      ? AppColors.white
+      : Colors.black;
   // Common Colors
   static const Color primary = Color(0xFFFFD700);
   static const Color secondary = Color(0xFF94073c);
@@ -46,3 +72,12 @@ class AppColors {
   static const Color darkBackground = Color(0xFF121212);
   static const Color darkText = Color(0xFFFFFFFF);
 }
+
+
+// import 'package:flutter/material.dart';
+
+// class AppColors {
+ 
+
+//   static Color primary = const Color(0xFFFFD700);
+// }

@@ -39,15 +39,15 @@ class DashboardView extends GetView<DashboardController> {
           );
         }),
       
-        bottomNavigationBar: _bottomNavBar(),
+        bottomNavigationBar: _bottomNavBar(context),
       ),
     );
   }
 
-  Widget _bottomNavBar() {
+  Widget _bottomNavBar(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.bgbttom(context),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.1),

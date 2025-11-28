@@ -11,10 +11,10 @@ class AccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
+      backgroundColor: AppColors.bg(context),
       appBar: AppBar(
-        title: const Text('Account', style: TextStyle(color: Colors.black)),
-        backgroundColor: Colors.white,
+        title:  Text('Account', style: TextStyle(color: AppColors.text(context))),
+        backgroundColor: AppColors.bg(context),
         elevation: 0,
       ),
       body: ListView(
@@ -26,30 +26,34 @@ class AccountScreen extends StatelessWidget {
             child: Icon(Icons.person, size: 60, color: Colors.black),
           ),
           const SizedBox(height: 20),
-          const Text(
+           Text(
             'Welcome!',
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.text(context)),
           ),
           const SizedBox(height: 30),
-          _buildMenuItem(Icons.shopping_bag, 'My Orders'),
-          _buildMenuItem(Icons.favorite, 'Wishlist'),
-          _buildMenuItem(Icons.location_on, 'Addresses', onTap: () {
-            Get.toNamed(AppRoutes.newAddressScreen);
-          }),
-          _buildMenuItem(Icons.payment, 'Payment Methods'),
-          _buildMenuItem(Icons.support_agent, 'Customer Support'),
-          _buildMenuItem(Icons.settings, 'Settings'),
+          _buildMenuItem(context, Icons.shopping_bag, 'My Orders', onTap: () { Get.toNamed(AppRoutes.myOrderScreen);}),
+          _buildMenuItem(context, Icons.favorite, 'Wishlist'),
+          _buildMenuItem(
+            context,
+            Icons.location_on,
+            'Addresses',
+            onTap: () {
+              Get.toNamed(AppRoutes.newAddressScreen);
+            },
+          ),
+          _buildMenuItem(context, Icons.payment, 'Payment Methods'),
+          _buildMenuItem(context, Icons.support_agent, 'Customer Support'),
+          _buildMenuItem(context, Icons.settings, 'Settings'),
         ],
       ),
     );
   }
-
-  Widget _buildMenuItem(IconData icon, String title, {VoidCallback? onTap}) {
+  Widget _buildMenuItem(BuildContext context, IconData icon, String title, {VoidCallback? onTap}) {
     return Container(
       margin: const EdgeInsets.only(bottom: 15),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.bg(context),
         borderRadius: BorderRadius.circular(15),
         border: Border.all(color: AppColors.primary),
         boxShadow: [
@@ -61,12 +65,11 @@ class AccountScreen extends StatelessWidget {
         ],
       ),
       child: ListTile(
-        leading: Icon(icon, color: Colors.black),
+        leading: Icon(icon, color: AppColors.icon(context)),
         title: Text(title, style: const TextStyle(fontWeight: FontWeight.w600)),
         trailing: const Icon(Icons.arrow_forward_ios, size: 16),
         onTap: onTap,
       ),
     );
   }
-
 }

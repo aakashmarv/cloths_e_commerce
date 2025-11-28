@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'constants/app_strings.dart';
 import 'roots/app_routes.dart';
+import 'theme/app_theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,9 +20,9 @@ class MyApp extends StatelessWidget {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           title: AppStrings.appName,
-          // theme: AppTheme.lightTheme,
-          // darkTheme: AppTheme.lightTheme,
-          // themeMode: appState.themeMode.value,
+          theme: AppTheme.lightTheme,
+          darkTheme: AppTheme.darkTheme,
+          themeMode: ThemeMode.system,
           initialRoute: AppRoutes.splash,
           getPages: AppRoutes.getRoutes(),
         );
