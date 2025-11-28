@@ -14,10 +14,13 @@ class CartView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
+      backgroundColor: AppColors.bg(context),
       appBar: AppBar(
-        title:  Text('CART', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp)),
-        backgroundColor: AppColors.white,
+        title: Text(
+          'CART',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp,),
+        ),
+        backgroundColor: AppColors.bg(context),
         foregroundColor: Colors.black87,
         elevation: 0.5,
       ),
@@ -53,6 +56,7 @@ class CartView extends StatelessWidget {
 
                 // Cart Item 1
                 cartItem(
+                  context: context,
                   imagePath: image1,
                   title: 'Brown Camo Printed Hoodie',
                   price: '₹1199',
@@ -65,6 +69,7 @@ class CartView extends StatelessWidget {
 
                 // Cart Item 2
                 cartItem(
+                  context: context,
                   imagePath: image2,
                   title: 'Tinted Brown Over Dyed Baggy Pants',
                   price: '₹1199',
@@ -76,12 +81,18 @@ class CartView extends StatelessWidget {
                 const SizedBox(height: 16),
 
                 // Extra savings card
-                Card(
-                  color: AppColors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                Container(
+                  decoration: BoxDecoration(
+                    color: AppColors.cardBg(context),
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.08),
+                        blurRadius: 10,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
                   ),
-                  elevation: 1,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                       vertical: 14,
@@ -93,9 +104,12 @@ class CartView extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
+                              Text(
                                 'Extra Savings',
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.text(context),
+                                ),
                               ),
                               const SizedBox(height: 8),
                               Row(
@@ -107,8 +121,10 @@ class CartView extends StatelessWidget {
                                   const SizedBox(width: 8),
                                   Expanded(
                                     child: RichText(
-                                      text: const TextSpan(
-                                        style: TextStyle(color: Colors.black87),
+                                      text: TextSpan(
+                                        style: TextStyle(
+                                          color: AppColors.text(context),
+                                        ),
                                         children: [
                                           TextSpan(text: 'Save '),
                                           TextSpan(
@@ -133,14 +149,16 @@ class CartView extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white,
                             elevation: 0.5,
+                            padding: EdgeInsets.symmetric(vertical: 8),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
                               side: const BorderSide(color: Colors.black12),
                             ),
+                            minimumSize: Size(20.w, 4),
                           ),
-                          child: const Text(
+                          child:  Text(
                             'APPLY',
-                            style: TextStyle(color: Colors.black),
+                            style: TextStyle(color: Colors.black, fontSize: 15.sp),
                           ),
                         ),
                       ],
@@ -150,45 +168,55 @@ class CartView extends StatelessWidget {
                 const SizedBox(height: 16),
 
                 // Order summary card
-                Card(
-                  color: AppColors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                Container(
+                  decoration: BoxDecoration(
+                    color: AppColors.cardBg(context),
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.08),
+                        blurRadius: 10,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
                   ),
-                  elevation: 1,
                   child: Padding(
                     padding: const EdgeInsets.all(14),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
+                        Text(
                           'Order Summary (2 items)',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
+                            color: AppColors.text(context),
                           ),
                         ),
                         const SizedBox(height: 12),
-                        _summaryRow('Total MRP (Inc. of Taxes)', '₹4898'),
+                        _summaryRow(context, 'Total MRP (Inc. of Taxes)', '₹4898'),
                         const SizedBox(height: 6),
                         _summaryRow(
+                          context,
                           'Beyoung Discount',
                           '- ₹2500',
                           valueColor: Colors.redAccent,
                         ),
-                        const SizedBox(height: 6),
                         _summaryRow(
+                          context,
                           'Shipping',
                           'Free',
                           valueColor: Colors.green,
                         ),
-                        const Divider(height: 18),
                         _summaryRow(
+                          context,
                           'Total Amount',
                           '₹2398',
                           isBold: true,
-                          valueColor: Colors.black,
+                          // valueColor: Colors.black,
                         ),
+                          // valueColor: Colors.black,
+                        // ),
                       ],
                     ),
                   ),
@@ -205,9 +233,9 @@ class CartView extends StatelessWidget {
           // Bonus bar
           Container(
             width: double.infinity,
-            color:  AppColors.lightGreen,
-            padding:  EdgeInsets.symmetric(vertical: 8),
-            child:  Center(
+            color: AppColors.lightGreen,
+            padding: EdgeInsets.symmetric(vertical: 8),
+            child: Center(
               child: Text('Bonus Discount Auto-Applies on Prepaid Orders'),
             ),
           ),
@@ -218,7 +246,7 @@ class CartView extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 12.0,
-                vertical: 8,
+                vertical: 12,
               ),
               child: ElevatedButton(
                 onPressed: () {
@@ -227,10 +255,13 @@ class CartView extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.black,
                   foregroundColor: AppColors.white,
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 8,
+                  ), // 👈 height reduce
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(6),
                   ),
-                  minimumSize: Size(double.infinity, 40),
+                  minimumSize: Size(double.infinity, 4),
                 ),
                 child: const Text(
                   'PLACE ORDER',
@@ -242,8 +273,11 @@ class CartView extends StatelessWidget {
         ],
       ),
     );
-  }                                                           
+  }
+
   Widget _summaryRow(
+    BuildContext context, // add context
+
     String title,
     String value, {
     bool isBold = false,
@@ -256,7 +290,7 @@ class CartView extends StatelessWidget {
           title,
           style: TextStyle(
             fontSize: 14,
-            color: Colors.grey[800],
+            color: AppColors.text(context),
             fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
           ),
         ),
@@ -265,7 +299,7 @@ class CartView extends StatelessWidget {
           style: TextStyle(
             fontSize: 14,
             fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
-            color: valueColor ?? Colors.black87,
+            color: valueColor ?? AppColors.text(context),
           ),
         ),
       ],
@@ -273,6 +307,8 @@ class CartView extends StatelessWidget {
   }
 
   Widget cartItem({
+    required BuildContext context, // add context
+
     required String imagePath,
     required String title,
     required String price,
@@ -281,10 +317,18 @@ class CartView extends StatelessWidget {
     required String attributes,
     required String size,
   }) {
-    return Card(
-      elevation: 1,
-      color: AppColors.white,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.cardBg(context),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.08),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
       child: Column(
         children: [
           // TOP CONTENT
@@ -331,9 +375,10 @@ class CartView extends StatelessWidget {
                     children: [
                       Text(
                         title,
-                        style: const TextStyle(
-                          fontSize: 15,
+                        style: TextStyle(
+                          fontSize: 15.sp,
                           fontWeight: FontWeight.w600,
+                          color: AppColors.text(context)
                         ),
                       ),
                       const SizedBox(height: 10),
@@ -342,9 +387,10 @@ class CartView extends StatelessWidget {
                         children: [
                           Text(
                             price,
-                            style: const TextStyle(
-                              fontSize: 16,
+                            style:  TextStyle(
+                              fontSize: 15.sp,
                               fontWeight: FontWeight.bold,
+                              color: AppColors.text(context)
                             ),
                           ),
                           const SizedBox(width: 8),
@@ -379,18 +425,20 @@ class CartView extends StatelessWidget {
                               attributes,
                               maxLines: 2,
                               overflow: TextOverflow.visible,
-                              style: const TextStyle(
+                              style:  TextStyle(
                                 fontSize: 13,
                                 fontWeight: FontWeight.bold,
+                                color: AppColors.text(context)
                               ),
                             ),
                           ),
                           const SizedBox(width: 8),
                           Text(
                             size,
-                            style: const TextStyle(
+                            style:  TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.bold,
+                              color: AppColors.text(context)
                             ),
                           ),
                         ],
@@ -429,9 +477,9 @@ class CartView extends StatelessWidget {
                   child: Center(
                     child: GestureDetector(
                       onTap: () {},
-                      child: const Text(
+                      child:  Text(
                         "Move to Wishlist",
-                        style: TextStyle(fontSize: 13),
+                        style: TextStyle(fontSize: 13, color: AppColors.text(context)),
                       ),
                     ),
                   ),

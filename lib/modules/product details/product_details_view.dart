@@ -75,7 +75,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
+      backgroundColor: AppColors.bg(context),
       appBar: _appBar(),
       bottomNavigationBar: _bottomButtons(),
       body: SafeArea(
@@ -106,113 +106,63 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
   }
 
   Widget _sectionDivider() =>
-      Divider(height: 25, thickness: 10, color: Colors.grey.shade200);
+      Divider(height: 25, thickness: 10, color: AppColors.bg(context));
 
-PreferredSizeWidget _appBar() {
-  return AppBar(
-    backgroundColor: Colors.white,
-    elevation: 0,
-    actions: [
-      IconButton(
-        icon: Icon(Icons.share_outlined, size: 19.sp, color: Colors.black),
-         onPressed: () {
-    debugPrint("Share button pressed");
-    _shareProduct();
-  },
-      ),
-      SizedBox(width: 12),
-      Stack(
-        children: [
-          IconButton(
-            icon: Icon(
-              Icons.shopping_cart_outlined,
-              color: Colors.black,
-              size: 20.sp,
-            ),
-            onPressed: () {
-              Get.toNamed(AppRoutes.cartScreen);
-            },
+  PreferredSizeWidget _appBar() {
+    return AppBar(
+      backgroundColor: AppColors.bg(context),
+      elevation: 0,
+      actions: [
+        IconButton(
+          icon: Icon(
+            Icons.share_outlined,
+            size: 19.sp,
+            color: AppColors.appicon(context),
           ),
-          Positioned(
-            right: 8,
-            top: 6,
-            child: Container(
-              padding: const EdgeInsets.all(4),
-              decoration: const BoxDecoration(
-                color: AppColors.primary,
-                shape: BoxShape.circle,
+          onPressed: () {
+            debugPrint("Share button pressed");
+            _shareProduct();
+          },
+        ),
+        SizedBox(width: 12),
+        Stack(
+          children: [
+            IconButton(
+              icon: Icon(
+                Icons.shopping_cart_outlined,
+                color: AppColors.appicon(context),
+                size: 20.sp,
               ),
-              child: Text(
-                '0',
-                style: TextStyle(
-                  color: AppColors.black,
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.bold,
+              onPressed: () {
+                Get.toNamed(AppRoutes.cartScreen);
+              },
+            ),
+            Positioned(
+              right: 8,
+              top: 6,
+              child: Container(
+                padding: const EdgeInsets.all(4),
+                decoration: const BoxDecoration(
+                  color: AppColors.primary,
+                  shape: BoxShape.circle,
+                ),
+                child: Text(
+                  '0',
+                  style: TextStyle(
+                    color: AppColors.black,
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
-      ),
-      const SizedBox(width: 10),
-    ],
-  );
-}
+          ],
+        ),
+        const SizedBox(width: 10),
+      ],
+    );
+  }
 
-
-
-  // PreferredSizeWidget _appBar() {
-  //   return AppBar(
-  //     backgroundColor: Colors.white,
-  //     elevation: 0,
-  //     actions: [
-  //       IconButton(
-  //         icon: Icon(Icons.share_outlined, size: 19.sp, color: Colors.black),
-  //         onPressed: () {
-  //           _shareProduct();
-  //           debugPrint("Share button pressed");
-  //         },
-  //       ),
-  //       SizedBox(width: 12),
-  //       Stack(
-  //         children: [
-  //           IconButton(
-  //             icon: Icon(
-  //               Icons.shopping_cart_outlined,
-  //               color: Colors.black,
-  //               size: 20.sp,
-  //             ),
-  //             onPressed: () {
-  //               Get.toNamed(AppRoutes.cartScreen);
-  //             },
-  //           ),
-  //           Positioned(
-  //             right: 8,
-  //             top: 6,
-  //             child: Container(
-  //               padding: const EdgeInsets.all(4),
-  //               decoration: const BoxDecoration(
-  //                 color: AppColors.primary,
-  //                 shape: BoxShape.circle,
-  //               ),
-  //               child: Text(
-  //                 '0',
-  //                 style: TextStyle(
-  //                   color: AppColors.black,
-  //                   fontSize: 12.sp,
-  //                   fontWeight: FontWeight.bold,
-  //                 ),
-  //               ),
-  //             ),
-  //           ),
-  //         ],
-  //       ),
-  //       const SizedBox(width: 10),
-  //     ],
-  //   );
-  // }
-
- 
   Widget _productImageSection() {
     const images = [
       "assets/p2.jpg",
@@ -280,17 +230,25 @@ PreferredSizeWidget _appBar() {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             "Off White Elbow Patch Sweatshirt",
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              color: AppColors.text(context),
+            ),
           ),
           const SizedBox(height: 8),
 
           Row(
             children: [
-              const Text(
+              Text(
                 "₹1199",
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.text(context),
+                ),
               ),
               const SizedBox(width: 10),
               const Text(
@@ -405,15 +363,31 @@ PreferredSizeWidget _appBar() {
                 Expanded(
                   child: TextField(
                     keyboardType: TextInputType.phone,
-                    decoration: const InputDecoration(
+                    style: TextStyle(
+                      color: AppColors.text(context), // 👈 text color
+                      fontSize: 14,
+                    ),
+                    decoration: InputDecoration(
                       hintText: "Enter Pincode",
+                      hintStyle: TextStyle(
+                        color: AppColors.text(
+                          context,
+                        ), // 👈 hint color (optional)
+                      ),
                       border: InputBorder.none,
-                            
-                      contentPadding: EdgeInsets.symmetric(horizontal: 15),
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      disabledBorder: InputBorder.none,
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 15,
+                      ),
                       isDense: true,
+                      fillColor: AppColors.bg(context),
+                      filled: true, // 👈 Must use this to apply fillColor
                     ),
                   ),
                 ),
+
                 Container(
                   decoration: const BoxDecoration(
                     color: Colors.black,
@@ -450,7 +424,10 @@ PreferredSizeWidget _appBar() {
         const SizedBox(width: 10),
         Text(
           text,
-          style: TextStyle(color: AppColors.black, fontWeight: FontWeight.w500),
+          style: TextStyle(
+            color: AppColors.text(context),
+            fontWeight: FontWeight.w500,
+          ),
         ),
       ],
     );
@@ -476,14 +453,28 @@ PreferredSizeWidget _appBar() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 "Product Details",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.text(context),
+                ),
               ),
               const SizedBox(height: 10),
 
-              Card(
-                color: AppColors.white,
+              Container(
+                decoration: BoxDecoration(
+                  color: AppColors.cardBg(context),
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.08),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
                 child: Column(
                   children: [
                     _expandTile(
@@ -501,11 +492,14 @@ PreferredSizeWidget _appBar() {
                       subtitle: "Product overview and details",
                       open: descOpen,
                       onTap: () => ss(() => descOpen = !descOpen),
-                      child: const Padding(
+                      child: Padding(
                         padding: EdgeInsets.all(12),
                         child: Text(
                           "This hoodie is made with premium Poly Fleece and designed for winter comfort.",
-                          style: TextStyle(fontSize: 14, height: 1.4),
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: AppColors.text(context),
+                          ),
                         ),
                       ),
                     ),
@@ -517,11 +511,14 @@ PreferredSizeWidget _appBar() {
                       subtitle: "7 days easy returns and exchange",
                       open: refundOpen,
                       onTap: () => ss(() => refundOpen = !refundOpen),
-                      child: const Padding(
+                      child: Padding(
                         padding: EdgeInsets.all(12),
                         child: Text(
                           "You can return or exchange this product within 7 days.",
-                          style: TextStyle(fontSize: 14),
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: AppColors.text(context),
+                          ),
                         ),
                       ),
                     ),
@@ -533,11 +530,14 @@ PreferredSizeWidget _appBar() {
                       subtitle: "Company and distributor information",
                       open: marketedOpen,
                       onTap: () => ss(() => marketedOpen = !marketedOpen),
-                      child: const Padding(
+                      child: Padding(
                         padding: EdgeInsets.all(12),
                         child: Text(
                           "Marketed by XYZ Pvt. Ltd.\nRegistered in India.",
-                          style: TextStyle(fontSize: 14),
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: AppColors.text(context),
+                          ),
                         ),
                       ),
                     ),
@@ -564,7 +564,7 @@ PreferredSizeWidget _appBar() {
           onTap: onTap,
           title: Text(
             title,
-            style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
           ),
           subtitle: Text(
             subtitle,
@@ -614,9 +614,16 @@ PreferredSizeWidget _appBar() {
       children: [
         Text(
           label,
-          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 14,
+            color: AppColors.text(context),
+          ),
         ),
-        Text(value, style: const TextStyle(fontSize: 14)),
+        Text(
+          value,
+          style: TextStyle(fontSize: 14, color: AppColors.text(context)),
+        ),
       ],
     );
   }
@@ -629,7 +636,11 @@ PreferredSizeWidget _appBar() {
         children: [
           Text(
             title,
-            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 18.sp,
+              fontWeight: FontWeight.bold,
+              color: AppColors.text(context),
+            ),
           ),
           SizedBox(height: 15),
           SizedBox(
@@ -654,13 +665,13 @@ PreferredSizeWidget _appBar() {
         width: 43.w,
         margin: const EdgeInsets.only(bottom: 8),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColors.cardBg(context),
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
+              color: Colors.black.withOpacity(0.08),
               blurRadius: 10,
-              offset: Offset(0, 5),
+              offset: const Offset(0, 4),
             ),
           ],
         ),
@@ -687,9 +698,10 @@ PreferredSizeWidget _appBar() {
                     p['name'],
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
+                      color: AppColors.text(context),
                     ),
                   ),
                   const SizedBox(height: 4),
@@ -699,16 +711,20 @@ PreferredSizeWidget _appBar() {
                       const SizedBox(width: 4),
                       Text(
                         '${p['rating']}',
-                        style: const TextStyle(fontSize: 12),
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: AppColors.text(context),
+                        ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 8),
                   Text(
                     p['price'],
-                    style: const TextStyle(
+                    style:  TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
+                      color: AppColors.text(context),
                     ),
                   ),
                 ],
@@ -728,7 +744,11 @@ PreferredSizeWidget _appBar() {
         children: [
           Text(
             title,
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: AppColors.text(context),
+            ),
           ),
           const SizedBox(height: 12),
           child,
@@ -754,6 +774,7 @@ Widget _bottomButtons() {
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.black,
                 foregroundColor: AppColors.white,
+                padding: EdgeInsets.symmetric(vertical: 8),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
@@ -775,6 +796,7 @@ Widget _bottomButtons() {
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.primary,
                 foregroundColor: AppColors.black,
+                padding: EdgeInsets.symmetric(vertical: 8),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),

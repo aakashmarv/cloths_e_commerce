@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import '../../constants/app_colors.dart';
 import 'new_address_controller.dart';
 
 class NewAddressView extends StatefulWidget {
@@ -21,17 +22,17 @@ class _NewAddressViewState extends State<NewAddressView> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.teal.shade50,
+        backgroundColor: AppColors.bg(context),
         elevation: 1,
         centerTitle: true,
         title: Obx(() => Text(
           controller.isEditMode.value ? "Edit Address" : "Add Address",
-          style: const TextStyle(
-            color: Colors.black,
+          style:  TextStyle(
+            color: AppColors.text(context),
             fontWeight: FontWeight.w500,
           ),
         )),
-        iconTheme: const IconThemeData(color: Colors.black),
+        iconTheme: IconThemeData(color: AppColors.appicon(context)),
       ),
 
       body: Form(
@@ -94,7 +95,7 @@ class _NewAddressViewState extends State<NewAddressView> {
             SizedBox(height: height * 0.02),
 
             Text("Save As",
-                style: TextStyle(fontSize: 14.sp, color: Colors.grey[800])),
+                style: TextStyle(fontSize: 14.sp, color: AppColors.text(context))),
 
             SizedBox(height: height * 0.01),
 
@@ -206,7 +207,7 @@ class _NewAddressViewState extends State<NewAddressView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label, style: TextStyle(fontSize: 15.sp, color: Colors.black)),
+          Text(label, style: TextStyle(fontSize: 15.sp, color: AppColors.text(context))),
           SizedBox(height: size.height * 0.004),
           TextFormField(
             controller: controller,
@@ -244,7 +245,7 @@ class _NewAddressViewState extends State<NewAddressView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text("Mobile Number",
-              style: TextStyle(fontSize: 15.sp, color: Colors.black)),
+              style: TextStyle(fontSize: 15.sp, color: AppColors.text(context))),
           SizedBox(height: height * 0.01),
 
           Row(

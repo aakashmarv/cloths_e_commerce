@@ -6,6 +6,7 @@ import 'package:cloth_e_commerce/modules/cart/payment_screen.dart';
 import 'package:cloth_e_commerce/modules/category/category_binding.dart';
 import 'package:cloth_e_commerce/modules/dashboard/dashboard_binding.dart';
 import 'package:cloth_e_commerce/modules/dashboard/dashboard_view.dart';
+import 'package:cloth_e_commerce/modules/orders/order_details_view.dart';
 import 'package:cloth_e_commerce/modules/orders/order_list_view.dart';
 import 'package:cloth_e_commerce/modules/splash/splash_binding.dart';
 import 'package:get/get.dart';
@@ -22,6 +23,8 @@ class AppRoutes {
   static const paymentScreen = '/paymentScreen';
   static const searchScreen = '/searchScreen';
   static const myOrderScreen = '/myOrderScreen';
+  static const orderDetailsScreen = '/orderDetailsScreen';
+  static const addNewAddressScreen = '/addNewAddressScreen';
 
   static const _defaultTransition = Transition.cupertino;
   static const _transitionDuration = Duration(milliseconds: 500);
@@ -62,7 +65,8 @@ class AppRoutes {
       _buildPage(name: cartScreen, page: () => CartView()),
       _buildPage(name: paymentScreen, page: () => PaymentScreen()),
       _buildPage(name: searchScreen, page: () => SearchScreen()),
-      _buildPage(name: myOrderScreen, page: () => MyOrdersScreen())
+      _buildPage(name: myOrderScreen, page: () => MyOrdersScreen()),
+      _buildPage(name: orderDetailsScreen, page: () => OrderDetailsScreen()),
     ];
   }
 }

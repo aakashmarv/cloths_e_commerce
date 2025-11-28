@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import '../../constants/app_colors.dart';
+import '../../roots/app_routes.dart';
 
 class PaymentScreen extends StatefulWidget {
   const PaymentScreen({super.key});
@@ -11,10 +13,10 @@ class PaymentScreen extends StatefulWidget {
 
 class _PaymentScreenState extends State<PaymentScreen> {
   bool showItems = true;
-  // String? savedAddress;
+  String? savedAddress;
 
-  final String? savedAddress =
-      "123, Elm Street, Springfield, IL, 62704, United States";
+  // final String? savedAddress =
+  //     "123, Elm Street, Springfield, IL, 62704, United States";
 
   /// Dummy list of cart products
   final List<Map<String, String>> products = [
@@ -26,14 +28,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
+      backgroundColor: AppColors.bg(context),
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.bg(context),
         elevation: 0,
         foregroundColor: Colors.black,
-        title: const Text(
+        title:  Text(
           'ADDRESS',
-          style: TextStyle(fontWeight: FontWeight.w700),
+          style: TextStyle(fontWeight: FontWeight.w700, color: AppColors.text(context)),
         ),
       ),
 
@@ -43,20 +45,26 @@ class _PaymentScreenState extends State<PaymentScreen> {
           //-- ORDER SUMMARY CARD
           Container(
             padding: const EdgeInsets.all(14),
-            decoration: BoxDecoration(
-              color: const Color(0xFFF5F7F6),
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: Colors.grey.shade300),
+              decoration: BoxDecoration(
+          color: AppColors.cardBg(context),
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.08),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
             ),
+          ],
+        ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Column(
+                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       'Order Summary',
-                      style: TextStyle(fontWeight: FontWeight.w700),
+                      style: TextStyle(fontWeight: FontWeight.w700, color: AppColors.text(context)),
                     ),
                     SizedBox(height: 4),
                     Text(
@@ -76,25 +84,25 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
           _addressSection(
             userAddress: savedAddress,
-            onAdd: () {},
+            onAdd: () {
+              Get.toNamed(AppRoutes.newAddressScreen);
+            },
             onChange: () {},
           ),
           const SizedBox(height: 18),
 
-          //-- DELIVERY ESTIMATE CARD
           Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: Colors.grey.shade200),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
-                  blurRadius: 10,
-                  offset: const Offset(0, 2),
-                ),
-              ],
+             decoration: BoxDecoration(
+          color: AppColors.cardBg(context),
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.08),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
             ),
+          ],
+        ),
             child: Column(
               children: [
                 //-- Header
@@ -112,9 +120,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       children: [
                         Text(
                           'Delivery Estimate (${products.length})',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontWeight: FontWeight.w700,
                             fontSize: 16,
+                            color: AppColors.text(context)
                           ),
                         ),
                         AnimatedRotation(
@@ -227,17 +236,23 @@ class _PaymentScreenState extends State<PaymentScreen> {
         borderRadius: BorderRadius.circular(8),
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 18),
-          decoration: BoxDecoration(
-            color: const Color(0xFFF8F8F8),
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: Colors.grey.shade300),
-          ),
+         decoration: BoxDecoration(
+          color: AppColors.cardBg(context),
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.08),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
           child:  Center(
             child: Text(
               "Add New Address",
               style: TextStyle(
                 fontWeight: FontWeight.w600,
-                color: Colors.black,
+                color: AppColors.text(context),
               ),
             ),
           ),
@@ -247,27 +262,26 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
     return Container(
       padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.grey.shade300),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.03),
-            blurRadius: 6,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
+       decoration: BoxDecoration(
+          color: AppColors.cardBg(context),
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.08),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Icon(Icons.location_on, color: Colors.black, size: 22),
+          const Icon(Icons.location_on,  size: 22),
           const SizedBox(width: 10),
           Expanded(
             child: Text(
               userAddress,
-              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: AppColors.text(context)),
             ),
           ),
           GestureDetector(
