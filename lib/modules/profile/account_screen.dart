@@ -13,7 +13,10 @@ class AccountScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.bg(context),
       appBar: AppBar(
-        title:  Text('Account', style: TextStyle(color: AppColors.text(context))),
+        title: Text(
+          'Account',
+          style: TextStyle(color: AppColors.text(context)),
+        ),
         backgroundColor: AppColors.bg(context),
         elevation: 0,
       ),
@@ -26,14 +29,32 @@ class AccountScreen extends StatelessWidget {
             child: Icon(Icons.person, size: 60, color: Colors.black),
           ),
           const SizedBox(height: 20),
-           Text(
+          Text(
             'Welcome!',
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.text(context)),
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: AppColors.text(context),
+            ),
           ),
           const SizedBox(height: 30),
-          _buildMenuItem(context, Icons.shopping_bag, 'My Orders', onTap: () { Get.toNamed(AppRoutes.myOrderScreen);}),
-          _buildMenuItem(context, Icons.favorite, 'Wishlist'),
+          _buildMenuItem(
+            context,
+            Icons.shopping_bag,
+            'My Orders',
+            onTap: () {
+              Get.toNamed(AppRoutes.myOrderScreen);
+            },
+          ),
+          _buildMenuItem(
+            context,
+            Icons.favorite,
+            'Wishlist',
+            onTap: () {
+              Get.toNamed(AppRoutes.wishlistScreen);
+            },
+          ),
           _buildMenuItem(
             context,
             Icons.location_on,
@@ -49,7 +70,13 @@ class AccountScreen extends StatelessWidget {
       ),
     );
   }
-  Widget _buildMenuItem(BuildContext context, IconData icon, String title, {VoidCallback? onTap}) {
+
+  Widget _buildMenuItem(
+    BuildContext context,
+    IconData icon,
+    String title, {
+    VoidCallback? onTap,
+  }) {
     return Container(
       margin: const EdgeInsets.only(bottom: 15),
       decoration: BoxDecoration(

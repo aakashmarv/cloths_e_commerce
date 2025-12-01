@@ -156,6 +156,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
+      backgroundColor: AppColors.bg(context),
       appBar: AppBar(
         elevation: 0,
         backgroundColor: AppColors.bg(context),

@@ -72,6 +72,68 @@ class _HomeScreenState extends State<HomeScreen>
     }
   }
 
+  void _showWishlistPopup(Map<String, dynamic> product) {
+  showDialog(
+    context: context,
+    barrierDismissible: true, // tap outside to close
+    builder: (_) {
+      return Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(18),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(18),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(
+                Icons.favorite,
+                size: 45,
+                color: Colors.red,
+              ),
+              const SizedBox(height: 14),
+              Text(
+                "Added to Wishlist!",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                  color: AppColors.text(context),
+                ),
+              ),
+              const SizedBox(height: 6),
+              Text(
+                product['name'],
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 14,
+                  color: AppColors.text(context),
+                ),
+              ),
+              const SizedBox(height: 18),
+              ElevatedButton(
+                onPressed: () => Navigator.pop(context),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.black,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 18,
+                    vertical: 10,
+                  ),
+                ),
+                child: const Text("OK"),
+              ),
+            ],
+          ),
+        ),
+      );
+    },
+  );
+}
+
+
   @override
   void dispose() {
     _scrollController.dispose();
@@ -535,16 +597,19 @@ class _HomeScreenState extends State<HomeScreen>
                 Positioned(
                   top: 10,
                   right: 10,
-                  child: Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      Icons.favorite_border,
-                      size: 20,
-                      color: AppColors.icon(context),
+                  child: GestureDetector(
+                    onTap: () => _showWishlistPopup(product),
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.favorite_border,
+                        size: 20,
+                        color: AppColors.icon(context),
+                      ),
                     ),
                   ),
                 ),
@@ -639,16 +704,21 @@ class _HomeScreenState extends State<HomeScreen>
                 Positioned(
                   top: 10,
                   right: 10,
-                  child: Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      Icons.favorite_border,
-                      size: 20,
-                      color: AppColors.icon(context),
+                  child: GestureDetector(
+                    onTap: () {
+                      _showWishlistPopup(product);
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.favorite_border,
+                        size: 20,
+                        color: AppColors.icon(context),
+                      ),
                     ),
                   ),
                 ),
@@ -656,7 +726,7 @@ class _HomeScreenState extends State<HomeScreen>
             ),
 
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,

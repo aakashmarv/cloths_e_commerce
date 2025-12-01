@@ -35,7 +35,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
         foregroundColor: Colors.black,
         title:  Text(
           'ADDRESS',
-          style: TextStyle(fontWeight: FontWeight.w700, color: AppColors.text(context)),
+          style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.text(context), fontSize: 16.sp),
         ),
       ),
 
@@ -64,18 +64,18 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   children: [
                     Text(
                       'Order Summary',
-                      style: TextStyle(fontWeight: FontWeight.w700, color: AppColors.text(context)),
+                      style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.text(context), fontSize:  15.sp),
                     ),
                     SizedBox(height: 4),
                     Text(
                       'You are saving ₹3750',
-                      style: TextStyle(color: Colors.green),
+                      style: TextStyle(color: Colors.green, fontSize: 14.sp),
                     ),
                   ],
                 ),
-                const Text(
+                 Text(
                   '₹3547',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
+                  style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w800, color: AppColors.text(context)),
                 ),
               ],
             ),
@@ -113,7 +113,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 12,
-                      vertical: 12,
+                      vertical: 12,                          
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -122,7 +122,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           'Delivery Estimate (${products.length})',
                           style: TextStyle(
                             fontWeight: FontWeight.w700,
-                            fontSize: 16,
+                            fontSize: 15.sp,
                             color: AppColors.text(context)
                           ),
                         ),
@@ -210,14 +210,15 @@ class _PaymentScreenState extends State<PaymentScreen> {
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.black,
               foregroundColor: Colors.white,
+              padding: EdgeInsets.symmetric(vertical: 8),
               elevation: 0,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
             ),
-            child: const Text(
+            child:Text(
               'CONTINUE PAYMENT',
-              style: TextStyle(fontWeight: FontWeight.w700, letterSpacing: 1.2),
+              style: TextStyle(fontWeight: FontWeight.w700),
             ),
           ),
         ),
@@ -252,6 +253,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               "Add New Address",
               style: TextStyle(
                 fontWeight: FontWeight.w600,
+                fontSize: 15.sp,
                 color: AppColors.text(context),
               ),
             ),

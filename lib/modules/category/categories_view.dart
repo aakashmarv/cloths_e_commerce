@@ -121,7 +121,7 @@ class _CategoriesViewState extends State<CategoriesView> {
     return Scaffold(
       backgroundColor: AppColors.bg(context),
       appBar: AppBar(
-        backgroundColor: AppColors.bg(context),
+        backgroundColor: AppColors.bgbttom(context),
         centerTitle: true,
         elevation: 1,
         title: Text(

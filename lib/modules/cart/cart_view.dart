@@ -10,6 +10,119 @@ class CartView extends StatelessWidget {
 
   static const String image1 = 'assets/p2.jpg';
   static const String image2 = 'assets/images/banner2.jpg';
+  void _showWishlistPopup(BuildContext context, Map<String, dynamic> product) {
+    showDialog(
+      context: context,
+      barrierDismissible: true, // tap outside to close
+      builder: (_) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(18),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(18),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(Icons.favorite, size: 45, color: Colors.red),
+                const SizedBox(height: 14),
+                Text(
+                  "Added to Wishlist!",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    color: AppColors.text(context),
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  product['name'],
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: AppColors.text(context),
+                  ),
+                ),
+                const SizedBox(height: 18),
+                ElevatedButton(
+                  onPressed: () => Navigator.pop(context),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.black,
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 18,
+                      vertical: 10,
+                    ),
+                  ),
+                  child: const Text("OK"),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _showDeletePopup(BuildContext context, Map<String, dynamic> product) {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (_) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(18),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(18),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(Icons.delete_outline, size: 45, color: Colors.red),
+                const SizedBox(height: 14),
+                Text(
+                  "Removed from Cart",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    color: AppColors.text(context),
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  product['name'],
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: AppColors.text(context),
+                  ),
+                ),
+                const SizedBox(height: 18),
+                ElevatedButton(
+                  onPressed: () => Navigator.pop(context),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.black,
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 18,
+                      vertical: 10,
+                    ),
+                  ),
+                  child: const Text("OK"),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +131,7 @@ class CartView extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'CART',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp,),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
         ),
         backgroundColor: AppColors.bg(context),
         foregroundColor: Colors.black87,
@@ -156,9 +269,12 @@ class CartView extends StatelessWidget {
                             ),
                             minimumSize: Size(20.w, 4),
                           ),
-                          child:  Text(
+                          child: Text(
                             'APPLY',
-                            style: TextStyle(color: Colors.black, fontSize: 15.sp),
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 15.sp,
+                            ),
                           ),
                         ),
                       ],
@@ -194,7 +310,11 @@ class CartView extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 12),
-                        _summaryRow(context, 'Total MRP (Inc. of Taxes)', '₹4898'),
+                        _summaryRow(
+                          context,
+                          'Total MRP (Inc. of Taxes)',
+                          '₹4898',
+                        ),
                         const SizedBox(height: 6),
                         _summaryRow(
                           context,
@@ -215,7 +335,7 @@ class CartView extends StatelessWidget {
                           isBold: true,
                           // valueColor: Colors.black,
                         ),
-                          // valueColor: Colors.black,
+                        // valueColor: Colors.black,
                         // ),
                       ],
                     ),
@@ -378,7 +498,7 @@ class CartView extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 15.sp,
                           fontWeight: FontWeight.w600,
-                          color: AppColors.text(context)
+                          color: AppColors.text(context),
                         ),
                       ),
                       const SizedBox(height: 10),
@@ -387,10 +507,10 @@ class CartView extends StatelessWidget {
                         children: [
                           Text(
                             price,
-                            style:  TextStyle(
+                            style: TextStyle(
                               fontSize: 15.sp,
                               fontWeight: FontWeight.bold,
-                              color: AppColors.text(context)
+                              color: AppColors.text(context),
                             ),
                           ),
                           const SizedBox(width: 8),
@@ -425,20 +545,20 @@ class CartView extends StatelessWidget {
                               attributes,
                               maxLines: 2,
                               overflow: TextOverflow.visible,
-                              style:  TextStyle(
+                              style: TextStyle(
                                 fontSize: 13,
                                 fontWeight: FontWeight.bold,
-                                color: AppColors.text(context)
+                                color: AppColors.text(context),
                               ),
                             ),
                           ),
                           const SizedBox(width: 8),
                           Text(
                             size,
-                            style:  TextStyle(
+                            style: TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.bold,
-                              color: AppColors.text(context)
+                              color: AppColors.text(context),
                             ),
                           ),
                         ],
@@ -461,7 +581,14 @@ class CartView extends StatelessWidget {
                 Expanded(
                   child: Center(
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        _showDeletePopup(context, {
+                          "name": title,
+                          "image": imagePath,
+                          "price": price,
+                        });
+                      },
+
                       child: const Icon(Icons.delete_outline, size: 22),
                     ),
                   ),
@@ -476,10 +603,19 @@ class CartView extends StatelessWidget {
                 Expanded(
                   child: Center(
                     child: GestureDetector(
-                      onTap: () {},
-                      child:  Text(
+                      onTap: () {
+                        _showWishlistPopup(context, {
+                          "name": title,
+                          "image": imagePath,
+                          "price": price,
+                        });
+                      },
+                      child: Text(
                         "Move to Wishlist",
-                        style: TextStyle(fontSize: 13, color: AppColors.text(context)),
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: AppColors.text(context),
+                        ),
                       ),
                     ),
                   ),

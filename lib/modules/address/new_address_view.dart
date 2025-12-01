@@ -21,8 +21,9 @@ class _NewAddressViewState extends State<NewAddressView> {
     final height = size.height;
 
     return Scaffold(
+      backgroundColor: AppColors.bgbttom(context),
       appBar: AppBar(
-        backgroundColor: AppColors.bg(context),
+        backgroundColor: AppColors.bgbttom(context),
         elevation: 1,
         centerTitle: true,
         title: Obx(() => Text(
@@ -33,6 +34,7 @@ class _NewAddressViewState extends State<NewAddressView> {
           ),
         )),
         iconTheme: IconThemeData(color: AppColors.appicon(context)),
+        
       ),
 
       body: Form(
@@ -257,11 +259,11 @@ class _NewAddressViewState extends State<NewAddressView> {
                   border: Border.all(color: Colors.grey.shade400),
                   borderRadius: BorderRadius.circular(width * 0.02),
                 ),
-                child: const Row(
+                child:  Row(
                   children: [
                     Icon(Icons.flag, color: Colors.teal, size: 20),
                     SizedBox(width: 4),
-                    Text("+91"),
+                    Text("+91", style: TextStyle(color: AppColors.text(context)),),
                   ],
                 ),
               ),
