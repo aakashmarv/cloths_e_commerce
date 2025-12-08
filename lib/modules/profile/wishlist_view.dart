@@ -20,7 +20,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
       "rating": 4.5,
       "inStock": true,
       "image":
-          "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600"
+          "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600",
     },
     {
       "id": 2,
@@ -30,7 +30,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
       "rating": 4.8,
       "inStock": true,
       "image":
-          "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600"
+          "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600",
     },
     {
       "id": 3,
@@ -40,7 +40,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
       "rating": 4.3,
       "inStock": true,
       "image":
-          "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600"
+          "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600",
     },
     {
       "id": 4,
@@ -50,21 +50,21 @@ class _WishlistScreenState extends State<WishlistScreen> {
       "rating": 4.6,
       "inStock": true,
       "image":
-          "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600"
-    }
+          "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600",
+    },
   ];
 
   void removeProduct(int id) {
     setState(() => wishlist.removeWhere((e) => e["id"] == id));
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text("Item removed from wishlist")),
-    );
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(const SnackBar(content: Text("Item removed from wishlist")));
   }
 
   void addToCart(dynamic item) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("${item['name']} added to cart!")),
-    );
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text("${item['name']} added to cart!")));
   }
 
   @override
@@ -120,7 +120,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
               ),
             ),
             child: Text("Browse Products", style: TextStyle(fontSize: 11.sp)),
-          )
+          ),
         ],
       ),
     );
@@ -144,176 +144,174 @@ class _WishlistScreenState extends State<WishlistScreen> {
   }
 
   // ---------------- Card ------------------------
- Widget _productCard(dynamic item) {
-  return Container(
-    decoration: BoxDecoration(
-      color: AppColors.cardBg(context),
-      borderRadius: BorderRadius.circular(14),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withOpacity(.04),
-          blurRadius: 12,
-          offset: const Offset(0, 5),
-        ),
-      ],
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // ================== PRODUCT IMAGE SECTION ==================
-        ClipRRect(
-          borderRadius: BorderRadius.circular(14),
-          child: Stack(
-            children: [
-              Image.network(
-                item["image"],
-                height: 18.h,
-                width: double.infinity,
-                fit: BoxFit.cover,
-              ),
+  Widget _productCard(dynamic item) {
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.cardBg(context),
+        borderRadius: BorderRadius.circular(14),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(.04),
+            blurRadius: 12,
+            offset: const Offset(0, 5),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // ================== PRODUCT IMAGE SECTION ==================
+          ClipRRect(
+            borderRadius: BorderRadius.circular(14),
+            child: Stack(
+              children: [
+                Image.network(
+                  item["image"],
+                  height: 18.h,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
 
-              // stock overlay
-              if (!item["inStock"])
-                Positioned.fill(
-                  child: Container(
-                    color: Colors.black.withOpacity(.45),
-                    alignment: Alignment.center,
-                    child: Text(
-                      "OUT OF STOCK",
+                // stock overlay
+                if (!item["inStock"])
+                  Positioned.fill(
+                    child: Container(
+                      color: Colors.black.withOpacity(.45),
+                      alignment: Alignment.center,
+                      child: Text(
+                        "OUT OF STOCK",
+                        style: TextStyle(
+                          fontSize: 11.sp,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                          letterSpacing: 1,
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+
+          SizedBox(height: 1.2.h),
+
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 3.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Title
+                Text(
+                  item["name"],
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.text(context),
+                  ),
+                ),
+
+                SizedBox(height: 0.8.h),
+
+                // rating
+                Row(
+                  children: [
+                    Icon(Icons.star, size: 16.sp, color: Colors.amber.shade600),
+                    SizedBox(width: 1.5.w),
+                    Text(
+                      "${item['rating']}",
                       style: TextStyle(
-                        fontSize: 11.sp,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.text(context),
+                      ),
+                    ),
+                  ],
+                ),
+
+                SizedBox(height: 0.8.h),
+
+                // price
+                Row(
+                  children: [
+                    Text(
+                      "₹${item['price']}",
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.text(context),
+                      ),
+                    ),
+                    SizedBox(width: 1.5.w),
+                    Text(
+                      "₹${item['originalPrice']}",
+                      style: TextStyle(
+                        fontSize: 13.sp,
+                        color: Colors.grey.shade500,
+                        decoration: TextDecoration.lineThrough,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+
+          Spacer(),
+
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            child: Row(
+              children: [
+                // add button
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: item["inStock"] ? () => addToCart(item) : null,
+                    style: ElevatedButton.styleFrom(
+                      elevation: 0,
+                      backgroundColor: Colors.black87,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      padding: EdgeInsets.symmetric(vertical: 8),
+                      minimumSize: Size(35, 0),
+                    ),
+                    child: Text(
+                      "Add to Cart",
+                      style: TextStyle(
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                        letterSpacing: 1,
+                        color: AppColors.white,
                       ),
                     ),
                   ),
                 ),
-            ],
-          ),
-        ),
 
-        SizedBox(height: 1.2.h),
+                SizedBox(width: 2.4.w),
 
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 3.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Title
-              Text(
-                item["name"],
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.text(context),
-                ),
-              ),
-
-              SizedBox(height: 0.8.h),
-
-              // rating
-              Row(
-                children: [
-                  Icon(Icons.star, size: 16.sp, color: Colors.amber.shade600),
-                  SizedBox(width: 1.5.w),
-                  Text(
-                    "${item['rating']}",
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.text(context)
-                    ),
-                  ),
-                ],
-              ),
-
-              SizedBox(height: 0.8.h),
-
-              // price
-              Row(
-                children: [
-                  Text(
-                    "₹${item['price']}",
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w700,
-                      color: AppColors.text(context)
-                    ),
-                  ),
-                  SizedBox(width: 1.5.w),
-                  Text(
-                    "₹${item['originalPrice']}",
-                    style: TextStyle(
-                      fontSize: 13.sp,
-                      color: Colors.grey.shade500,
-                      decoration: TextDecoration.lineThrough,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-
-        Spacer(),
-
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-          child: Row(
-            children: [
-              // add button
-              Expanded(
-                child: ElevatedButton(
-                  onPressed: item["inStock"]
-                      ? () => addToCart(item)
-                      : null,
-                  style: ElevatedButton.styleFrom(
-                    elevation: 0,
-                    backgroundColor: Colors.black87,
-                    shape: RoundedRectangleBorder(
+                // delete button
+                InkWell(
+                  onTap: () => removeProduct(item["id"]),
+                  borderRadius: BorderRadius.circular(10),
+                  child: Container(
+                    padding: EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      color: Colors.red.shade50,
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    padding: EdgeInsets.symmetric(vertical: 8),
-                    minimumSize: Size(35, 0)
-                  ),
-                  child: Text(
-                    "Add to Cart",
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.text(context)
+                    child: Icon(
+                      Icons.delete_outline,
+                      size: 20.sp,
+                      color: Colors.red.shade400,
                     ),
                   ),
                 ),
-              ),
-
-              SizedBox(width: 2.4.w),
-
-              // delete button
-              InkWell(
-                onTap: () => removeProduct(item["id"]),
-                borderRadius: BorderRadius.circular(10),
-                child: Container(
-                  padding: EdgeInsets.all(4),
-                  decoration: BoxDecoration(
-                    color: Colors.red.shade50,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Icon(
-                    Icons.delete_outline,
-                    size: 20.sp,
-                    color: Colors.red.shade400,
-                  ),
-                ),
-              )
-            ],
+              ],
+            ),
           ),
-        ),
-      ],
-    ),
-  );
-}           
+        ],
+      ),
+    );
+  }
 }

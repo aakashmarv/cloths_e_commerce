@@ -20,38 +20,70 @@ class _HomeScreenState extends State<HomeScreen>
   String _selectedCategory = 'All';
   bool _isScrolled = false;
 
-  final List<String> _categories = ['All', 'Men', 'Women', 'Kids'];
+  // Track wishlisted products
+  final Set<int> _wishlistedProducts = {};
 
-  final List<Map<String, dynamic>> _products = [
-    {
-      'image':
-          'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=400',
-      'name': 'Olive Green Shirt',
-      'price': '₹499',
-      'rating': 4.5,
-    },
-    {
-      'image':
-          'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=400',
-      'name': 'Black Hoodie',
-      'price': '₹799',
-      'rating': 4.8,
-    },
-    {
-      'image':
-          'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400',
-      'name': 'White T-Shirt',
-      'price': '₹399',
-      'rating': 4.3,
-    },
-    {
-      'image':
-          'https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?w=400',
-      'name': 'Blue Denim Jacket',
-      'price': '₹1299',
-      'rating': 4.7,
-    },
-  ];
+  final List<String> _categories = ['All', 'Men', 'Women', 'Kids'];
+  final List<Map<String, dynamic>> _recentProducts = [
+  {
+    'id': 101,
+    'image': 'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=400',
+    'name': 'Olive Green Shirt',
+    'price': '₹499',
+    'rating': 4.5,
+  },
+  {
+    'id': 102,
+    'image': 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=400',
+    'name': 'Black Hoodie',
+    'price': '₹799',
+    'rating': 4.8,
+  },
+  {
+    'id': 103,
+    'image': 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400',
+    'name': 'White T-Shirt',
+    'price': '₹399',
+    'rating': 4.3,
+  },
+  {
+    'id': 104,
+    'image': 'https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?w=400',
+    'name': 'Blue Denim Jacket',
+    'price': '₹1299',
+    'rating': 4.7,
+  },
+];
+final List<Map<String, dynamic>> _allProducts = [
+  {
+    'id': 201,
+    'image': 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400',
+    'name': 'White T-Shirt',
+    'price': '₹399',
+    'rating': 4.3,
+  },
+  {
+    'id': 202,
+    'image': 'https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?w=400',
+    'name': 'Blue Denim Jacket',
+    'price': '₹1299',
+    'rating': 4.7,
+  },
+  {
+    'id': 203,
+    'image': 'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=400',
+    'name': 'Olive Green Shirt',
+    'price': '₹499',
+    'rating': 4.5,
+  },
+  {
+    'id': 204,
+    'image': 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=400',
+    'name': 'Black Hoodie',
+    'price': '₹799',
+    'rating': 4.8,
+  },
+];
 
   @override
   void initState() {
@@ -73,66 +105,15 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   void _showWishlistPopup(Map<String, dynamic> product) {
-  showDialog(
-    context: context,
-    barrierDismissible: true, // tap outside to close
-    builder: (_) {
-      return Dialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(18),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(18),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(
-                Icons.favorite,
-                size: 45,
-                color: Colors.red,
-              ),
-              const SizedBox(height: 14),
-              Text(
-                "Added to Wishlist!",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                  color: AppColors.text(context),
-                ),
-              ),
-              const SizedBox(height: 6),
-              Text(
-                product['name'],
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 14,
-                  color: AppColors.text(context),
-                ),
-              ),
-              const SizedBox(height: 18),
-              ElevatedButton(
-                onPressed: () => Navigator.pop(context),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.black,
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 18,
-                    vertical: 10,
-                  ),
-                ),
-                child: const Text("OK"),
-              ),
-            ],
-          ),
-        ),
-      );
-    },
-  );
-}
-
+    final int productId = product['id'];
+        setState(() {
+      if (_wishlistedProducts.contains(productId)) {
+        _wishlistedProducts.remove(productId);
+      } else {
+        _wishlistedProducts.add(productId);
+      }
+    });
+  }
 
   @override
   void dispose() {
@@ -220,7 +201,9 @@ class _HomeScreenState extends State<HomeScreen>
             Icons.notifications_outlined,
             color: AppColors.text(context),
           ),
-          onPressed: () {},
+          onPressed: () {
+            Get.toNamed(AppRoutes.notificationScreen);
+          },
         ),
         Stack(
           children: [
@@ -466,7 +449,6 @@ class _HomeScreenState extends State<HomeScreen>
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
-
             children: [
               Text(
                 'FLAT 10% OFF',
@@ -512,10 +494,10 @@ class _HomeScreenState extends State<HomeScreen>
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
                 physics: const BouncingScrollPhysics(),
-                itemCount: _products.length,
+                itemCount: _recentProducts.length,
                 separatorBuilder: (_, __) => const SizedBox(width: 15),
                 itemBuilder: (context, index) =>
-                    _buildProductCard(_products[index]),
+                    _buildProductCard(_recentProducts[index]),
               ),
             ),
           ),
@@ -538,7 +520,6 @@ class _HomeScreenState extends State<HomeScreen>
               color: AppColors.text(context),
             ),
           ),
-
           GridView.builder(
             padding: EdgeInsets.only(top: 15),
             shrinkWrap: true,
@@ -549,9 +530,9 @@ class _HomeScreenState extends State<HomeScreen>
               crossAxisSpacing: 15,
               mainAxisSpacing: 15,
             ),
-            itemCount: _products.length,
+            itemCount: _allProducts.length,
             itemBuilder: (context, index) {
-              return _buildAllProductCard(_products[index]);
+              return _buildAllProductCard(_allProducts[index]);
             },
           ),
         ],
@@ -560,6 +541,9 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   Widget _buildProductCard(Map<String, dynamic> product) {
+    final int productId = product['id'];
+    final bool isWishlisted = _wishlistedProducts.contains(productId);
+
     return GestureDetector(
       onTap: () {
         Get.toNamed(AppRoutes.productDetailScreen);
@@ -606,9 +590,9 @@ class _HomeScreenState extends State<HomeScreen>
                         shape: BoxShape.circle,
                       ),
                       child: Icon(
-                        Icons.favorite_border,
+                        isWishlisted ? Icons.favorite : Icons.favorite_border,
                         size: 20,
-                        color: AppColors.icon(context),
+                        color: isWishlisted ? Colors.red : AppColors.icon(context),
                       ),
                     ),
                   ),
@@ -663,6 +647,9 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   Widget _buildAllProductCard(Map<String, dynamic> product) {
+    final int productId = product['id'];
+    final bool isWishlisted = _wishlistedProducts.contains(productId);
+
     return GestureDetector(
       onTap: () {
         Get.toNamed(AppRoutes.productDetailScreen);
@@ -715,16 +702,15 @@ class _HomeScreenState extends State<HomeScreen>
                         shape: BoxShape.circle,
                       ),
                       child: Icon(
-                        Icons.favorite_border,
+                        isWishlisted ? Icons.favorite : Icons.favorite_border,
                         size: 20,
-                        color: AppColors.icon(context),
+                        color: isWishlisted ? Colors.red : AppColors.icon(context),
                       ),
                     ),
                   ),
                 ),
               ],
             ),
-
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
               child: Column(

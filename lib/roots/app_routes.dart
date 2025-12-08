@@ -6,6 +6,7 @@ import 'package:cloth_e_commerce/modules/cart/payment_screen.dart';
 import 'package:cloth_e_commerce/modules/category/category_binding.dart';
 import 'package:cloth_e_commerce/modules/dashboard/dashboard_binding.dart';
 import 'package:cloth_e_commerce/modules/dashboard/dashboard_view.dart';
+import 'package:cloth_e_commerce/modules/notifications/notification_view.dart';
 import 'package:cloth_e_commerce/modules/orders/order_details_view.dart';
 import 'package:cloth_e_commerce/modules/orders/order_list_view.dart';
 import 'package:cloth_e_commerce/modules/profile/wishlist_view.dart';
@@ -27,6 +28,7 @@ class AppRoutes {
   static const orderDetailsScreen = '/orderDetailsScreen';
   static const addNewAddressScreen = '/addNewAddressScreen';
   static const wishlistScreen = '/wishlistScreen';
+  static const notificationScreen = '/notificationScreen';
 
   static const _defaultTransition = Transition.cupertino;
   static const _transitionDuration = Duration(milliseconds: 500);
@@ -69,7 +71,8 @@ class AppRoutes {
       _buildPage(name: searchScreen, page: () => SearchScreen()),
       _buildPage(name: myOrderScreen, page: () => MyOrdersScreen()),
       _buildPage(name: orderDetailsScreen, page: () => OrderDetailsScreen()),
-      _buildPage(name: wishlistScreen, page: () => WishlistScreen())
+      _buildPage(name: wishlistScreen, page: () => WishlistScreen()),
+      _buildPage(name: notificationScreen, page: () => NotificationPage())
     ];
   }
 }

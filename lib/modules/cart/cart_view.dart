@@ -5,15 +5,25 @@ import 'package:sizer/sizer.dart';
 import '../../constants/app_colors.dart';
 import '../../roots/app_routes.dart';
 
-class CartView extends StatelessWidget {
+class CartView extends StatefulWidget {
   const CartView({super.key});
 
+  @override
+  State<CartView> createState() => _CartViewState();
+}
+
+class _CartViewState extends State<CartView> {
   static const String image1 = 'assets/p2.jpg';
   static const String image2 = 'assets/images/banner2.jpg';
+  
+  // Track quantity for each item
+  int qtyItem1 = 1;
+  int qtyItem2 = 1;
+
   void _showWishlistPopup(BuildContext context, Map<String, dynamic> product) {
     showDialog(
       context: context,
-      barrierDismissible: true, // tap outside to close
+      barrierDismissible: true,
       builder: (_) {
         return Dialog(
           shape: RoundedRectangleBorder(
@@ -124,6 +134,55 @@ class CartView extends StatelessWidget {
     );
   }
 
+  void _showQtySelector(BuildContext context, bool isItem1) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return SizedBox(
+          height: 260,
+          child: Column(
+            children: [
+              const SizedBox(height: 12),
+              const Text(
+                "Select Quantity",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const Divider(),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: 10, // Qty 1 to 10
+                  itemBuilder: (context, index) {
+                    int qty = index + 1;
+                    return ListTile(
+                      title: Text("Qty: $qty"),
+                      onTap: () {
+                        Navigator.pop(context);
+                        setState(() {
+                          if (isItem1) {
+                            qtyItem1 = qty;
+                          } else {
+                            qtyItem2 = qty;
+                          }
+                        });
+                      },
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -177,6 +236,8 @@ class CartView extends StatelessWidget {
                   save: '₹1200',
                   attributes: 'Color: Brown Camo Printed',
                   size: 'Size: M',
+                  quantity: qtyItem1,
+                  onQuantityTap: () => _showQtySelector(context, true),
                 ),
                 const SizedBox(height: 12),
 
@@ -190,6 +251,8 @@ class CartView extends StatelessWidget {
                   save: '₹1300',
                   attributes: 'Color: Tinted Brown',
                   size: ' Size: 30',
+                  quantity: qtyItem2,
+                  onQuantityTap: () => _showQtySelector(context, false),
                 ),
                 const SizedBox(height: 16),
 
@@ -302,7 +365,7 @@ class CartView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Order Summary (2 items)',
+                          'Order Summary (${qtyItem1 + qtyItem2} items)',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
@@ -313,13 +376,13 @@ class CartView extends StatelessWidget {
                         _summaryRow(
                           context,
                           'Total MRP (Inc. of Taxes)',
-                          '₹4898',
+                          '₹${(2399 * qtyItem1 + 2499 * qtyItem2)}',
                         ),
                         const SizedBox(height: 6),
                         _summaryRow(
                           context,
                           'Beyoung Discount',
-                          '- ₹2500',
+                          '- ₹${(1200 * qtyItem1 + 1300 * qtyItem2)}',
                           valueColor: Colors.redAccent,
                         ),
                         _summaryRow(
@@ -331,21 +394,15 @@ class CartView extends StatelessWidget {
                         _summaryRow(
                           context,
                           'Total Amount',
-                          '₹2398',
+                          '₹${(1199 * qtyItem1 + 1199 * qtyItem2)}',
                           isBold: true,
-                          // valueColor: Colors.black,
                         ),
-                        // valueColor: Colors.black,
-                        // ),
                       ],
                     ),
                   ),
                 ),
 
                 const SizedBox(height: 18),
-
-                // _paymentRow(),
-                // const SizedBox(height: 24),
               ],
             ),
           ),
@@ -377,7 +434,7 @@ class CartView extends StatelessWidget {
                   foregroundColor: AppColors.white,
                   padding: const EdgeInsets.symmetric(
                     vertical: 8,
-                  ), // 👈 height reduce
+                  ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(6),
                   ),
@@ -396,8 +453,7 @@ class CartView extends StatelessWidget {
   }
 
   Widget _summaryRow(
-    BuildContext context, // add context
-
+    BuildContext context,
     String title,
     String value, {
     bool isBold = false,
@@ -427,8 +483,7 @@ class CartView extends StatelessWidget {
   }
 
   Widget cartItem({
-    required BuildContext context, // add context
-
+    required BuildContext context,
     required String imagePath,
     required String title,
     required String price,
@@ -436,6 +491,8 @@ class CartView extends StatelessWidget {
     required String save,
     required String attributes,
     required String size,
+    required int quantity,
+    required VoidCallback onQuantityTap,
   }) {
     return Container(
       decoration: BoxDecoration(
@@ -469,26 +526,26 @@ class CartView extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 10),
-
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 6,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: const Text(
-                        "Qty: 1 ▼",
-                        style: TextStyle(fontSize: 13),
+                    GestureDetector(     
+                      onTap: onQuantityTap,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 6,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: Text(
+                          "Qty: $quantity ▼",
+                          style: const TextStyle(fontSize: 13),
+                        ),
                       ),
                     ),
                   ],
                 ),
-
                 const SizedBox(width: 12),
-
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -502,11 +559,10 @@ class CartView extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 10),
-
                       Row(
                         children: [
                           Text(
-                            price,
+                            '₹${int.parse(price.replaceAll('₹', '')) * quantity}',
                             style: TextStyle(
                               fontSize: 15.sp,
                               fontWeight: FontWeight.bold,
@@ -515,7 +571,7 @@ class CartView extends StatelessWidget {
                           ),
                           const SizedBox(width: 8),
                           Text(
-                            mrp,
+                            '₹${int.parse(mrp.replaceAll('₹', '')) * quantity}',
                             style: const TextStyle(
                               fontSize: 13,
                               color: Colors.grey,
@@ -524,19 +580,15 @@ class CartView extends StatelessWidget {
                           ),
                         ],
                       ),
-
                       const SizedBox(height: 8),
-
                       Text(
-                        "You save $save",
+                        "You save ₹${int.parse(save.replaceAll('₹', '')) * quantity}",
                         style: const TextStyle(
                           fontSize: 13,
                           color: Colors.green,
                         ),
                       ),
-
                       const SizedBox(height: 10),
-
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -569,47 +621,44 @@ class CartView extends StatelessWidget {
               ],
             ),
           ),
-
           // FULL WIDTH DIVIDER
           const Divider(height: 1, thickness: 1, color: Color(0xFFE0E0E0)),
-
-          // BOTTOM ROW
           SizedBox(
             height: 48,
             child: Row(
               children: [
+                // 🗑 DELETE (full area clickable)
                 Expanded(
-                  child: Center(
-                    child: GestureDetector(
-                      onTap: () {
-                        _showDeletePopup(context, {
-                          "name": title,
-                          "image": imagePath,
-                          "price": price,
-                        });
-                      },
-
-                      child: const Icon(Icons.delete_outline, size: 22),
-                    ),
+                  child: GestureDetector(
+                    onTap: () {
+                      _showDeletePopup(context, {
+                        "name": title,
+                        "image": imagePath,
+                        "price": price,
+                      });
+                    },
+                    behavior: HitTestBehavior.opaque,
+                    child: Center(child: Icon(Icons.delete_outline, size: 22)),
                   ),
                 ),
-
+                // Divider
                 Container(
                   width: 1,
                   height: double.infinity,
                   color: Color(0xFFE0E0E0),
                 ),
-
+                // 🤍 MOVE TO WISHLIST (full area clickable)
                 Expanded(
-                  child: Center(
-                    child: GestureDetector(
-                      onTap: () {
-                        _showWishlistPopup(context, {
-                          "name": title,
-                          "image": imagePath,
-                          "price": price,
-                        });
-                      },
+                  child: GestureDetector(
+                    onTap: () {
+                      _showWishlistPopup(context, {
+                        "name": title,
+                        "image": imagePath,
+                        "price": price,
+                      });
+                    },
+                    behavior: HitTestBehavior.opaque,
+                    child: Center(
                       child: Text(
                         "Move to Wishlist",
                         style: TextStyle(

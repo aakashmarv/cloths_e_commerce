@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../constants/app_colors.dart';
 import '../../roots/app_routes.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -30,15 +31,18 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.bg(context),
 
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.bg(context),
         centerTitle: true,
-        title: const Text(
+        title: Text(
           "Search",
-          style: TextStyle(fontWeight: FontWeight.w700, color: Colors.black),
+          style: TextStyle(
+            fontWeight: FontWeight.w700,
+            color: AppColors.text(context),
+          ),
         ),
       ),
 
@@ -50,12 +54,16 @@ class _SearchScreenState extends State<SearchScreen> {
             Container(
               margin: const EdgeInsets.only(top: 12),
               decoration: BoxDecoration(
-                color: const Color(0xFFF5F5F5),
+                // color: const Color(0xFFF5F5F5),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: TextField(
                 controller: _ctrl,
                 onChanged: (v) => setState(() => showResults = v.isNotEmpty),
+                style:  TextStyle(
+                  color: AppColors.text(context), // 👈 Yaha apna desired color daalo
+                  fontSize: 16,
+                ),
                 decoration: InputDecoration(
                   hintText: "Search for products...",
                   prefixIcon: const Icon(Icons.search),
@@ -81,9 +89,13 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget _suggestionsView() {
     return ListView(
       children: [
-        const Text(
+        Text(
           "Recent Searches",
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+          style: TextStyle(
+            fontWeight: FontWeight.w700,
+            fontSize: 16,
+            color: AppColors.text(context),
+          ),
         ),
         const SizedBox(height: 8),
 
@@ -99,9 +111,13 @@ class _SearchScreenState extends State<SearchScreen> {
         ),
 
         const SizedBox(height: 20),
-        const Text(
+        Text(
           "Popular Searches",
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+          style: TextStyle(
+            fontWeight: FontWeight.w700,
+            fontSize: 16,
+            color: AppColors.text(context),
+          ),
         ),
         const SizedBox(height: 8),
 
