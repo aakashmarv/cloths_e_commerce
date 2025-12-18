@@ -725,7 +725,7 @@ final List<Map<String, dynamic>> _allProducts = [
                       color: AppColors.text(context),
                     ),
                     maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
+                    overflow: TextOverflow.ellipsis,                   
                   ),
                   const SizedBox(height: 4),
                   Row(

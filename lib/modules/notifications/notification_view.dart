@@ -12,8 +12,7 @@ class NotificationPage extends StatefulWidget {
 
 class _NotificationPageState extends State<NotificationPage> {
   // Dummy notification list
-  List<String> notifications = []; // 👈 Empty → Show "No Notifications"
-
+  List<String> notifications = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
